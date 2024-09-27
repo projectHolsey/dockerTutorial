@@ -1,0 +1,10 @@
+application is going to make a node app that communicates with redis server.
+
+Node is going to handle the http requests
+
+Redis is going to be used as a small in memory database.
+
+
+We're going to separate the redis instance and docker instance
+Because you want multiple node servers pointed to 1 redis server
+

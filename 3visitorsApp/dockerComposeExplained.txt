@@ -1,0 +1,48 @@
+Docker compose is a separate cli that gets install with docker
+
+It's used to start multiple containers at the same time
+
+Automates some of the long-winded arguments we were passing to docker run 
+( e.g. docker run -p 8080:8080 projectholsey/visit )
+
+
+docker compose has to be run inside a directory containing the docker-compose.yml.
+If you're not in said dir, it'll complain.
+
+===================================
+docker-compose up
+> Looks into current dir to find docker compose yml file
+
+docker-compose up --build
+> If we want to rebuild the image inside the docker compose file
+
+docker-compose down
+> if we want to stop all the docker containers in this docker-compuse group
+
+
+
+===================================
+restarting a container when / if the program servers
+
+( can see in docker ps, that there may be a container that's crashed as it'll be absent from output )
+
+Restart policy
+[ no | always | on-failure | unless-stopped ]
+
+note - if the docker container is restarted automatically due to a crash,
+	it uses the last container, it doesn't start a new one.
+	Also appends to the crashed container's logs.
+
+"no" - don't restart, but also, if using this option, then we specifically need to
+	type the word "no" with quotes. (as no === false in yml)
+
+always - Always restart regradless of the exit reason
+	>> good for web apps where you always want them active
+
+On-failure - Will only restart the container if the running process exited with
+	an exit code of anything other than 0.
+	Exiting with 0 is GOOD, exiting with anything beyond that is BAD.
+	>> good for a temporary service / worker process that runs and exists
+
+
+unless-stopped - always restart unless I forcibly tell it to start.

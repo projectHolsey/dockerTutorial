@@ -1,0 +1,21 @@
+This segment is designed to walk through how to develop, test and deploy with docker.
+
+It'll also go through how we re-develop, re-test and re-deploy for a development lifecycle
+
+Example flow.
+
+> You push code to github feature branch in a repo.
+> You then make a pull request against the main branch
+> a montioring service will take this code in master / main branch and run 
+	all the tests you designed for it.
+	For the sake of this demo, it'll be using travis ci
+> Once it's fully passed all those tests, it'll auto push this to AWS host
+
+=====================================
+
+NOTE - docker isn't needed for these workflows. It is a tool to make
+	executing some of these tasks so much easier
+
+=====================================
+
+This'll use a react app.

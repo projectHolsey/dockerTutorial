@@ -1,0 +1,22 @@
+version: '3'
+
+# note - by creating the 2 services here, the docker-compose will
+# allow the containers to communicate over a shared network
+# so we don't have to make any link between redis-server and node-app
+
+
+# essentially what docker containers we want this to spawn
+services:
+  # what it should be called
+  redis-server:
+    # what image we want to use
+    image: 'redis'
+    restart: always # This is only for the redis server
+
+  node-app:
+    restart: always # This is only for the node app
+    # look in the current dir to find the dockerfile
+    build: .
+    ports:
+      # - is an array in yml
+      - "4001:8081"

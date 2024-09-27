@@ -1,0 +1,36 @@
+Notes from Section 4:
+
+== 
+
+Not all base images will come with what you want, so you can look up an image that
+does on : "hub.docker.com".
+
+On this website you can look for base image you want.
+It'll tell you in the description what tags there are that come with node.
+
+Some will come with a BUNCH of other installed programs to (e.g. GIT)
+
+==
+
+By default, no traffic is routed in the container(s)
+They essentially have their own isolated set of ports 
+
+You have to port map to forward request on your local network to the 
+container
+
+( only talks about INCOMING requests. Containers can already speak to outside world )
+
+Docker port forwarding is done strictly in the run command, not the docker build file
+
+docker run -p 8080:8080 projectholsey/simpleweb
+
+<The port to forward from on your machine TO on the container>
+
+==
+
+You don't have to rebuild all the time if you make a refresh.
+
+If you change a file and re-build, you need to re-make the entire system
+from the line where you copied the changed file onwards
+
+

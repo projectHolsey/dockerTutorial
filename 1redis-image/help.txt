@@ -1,0 +1,72 @@
+Quick notes
+
+"Dockerfile" must start with capital D
+
+Dockerfile is what's used to build the image
+
+"Docker build ." to build the docker file in the current directory
+
+Image ID will look like the line below
+==> ==> writing image sha256:820828b29d451a1901c4cfe14db248c994bdc9e7603bfca3bb
+
+( where "820828b29d451a1901c4cfe14db248c994bdc9e7603bfca3bb" is the image id ) 
+
+
+==
+
+"docker build ."
+> Where the . is the files to include, here it's only the dockerfile
+
+==
+
+'FROM ALPINE'
+> download the alpine image off of dockerhub 
+
+RUN apk add --update redis
+> looked back at the first line, saw the image, and created a temporary new container out of it
+> We execute this current line as a process inside the temp container
+> Saves the file system snapshot as a temp image
+> stop and threw away the container
+
+"CMD ["redis-server"]"
+> Create temp container
+> sets the command as the primary executable command
+> Saves image 
+> Stops and shutsdown container
+( It's now available to run if needed with correct parameters )
+
+
+Build:
+> Get base image
+> Every command then fourth, you create a container from previous commands image, 
+	run the action, save the image, and close the container.
+> But it was all off of the base image, so the filesystem is included
+> When there's no more steps, we use last image as complete image
+
+==
+
+Rebuilding with cache - 
+Docker can realise if anything changed from the last docker build command.
+If nothing has changed in between steps, it'll just reload from cache and 
+be super quick! :) 
+
+( Note - Changing the order of operations will change the image, therefore
+	you cannot load from cache if the same commands in a different order )
+
+
+
+===============
+
+You can tag a docker image, instead of having to memorize a docker image id
+
+"docker build -t projectholsey/projectname:latest ."
+
+<Your DockerID name + / + Name of project + : + version>
+
+HAS TO BE LOWERCASE
+
+=========================
+
+Once you have a tagged version, it'll be saved locally and be run with
+
+docker run projectholsey/projectname

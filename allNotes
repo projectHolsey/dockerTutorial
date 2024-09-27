@@ -1,0 +1,106 @@
+=========================================================================
+PART 1
+=========================================================================
+
+Images vs containers.
+
+Container is essentially a selection of hardware / hardware resources allocated to run the image.
+With virtualization, you can specify hardware commands to allocate said resources.
+The kernal is the same kernal through every container, it is able to check the command sent to it and know which container this pertains to.
+
+
+The image is essentially a program(s) to run on that container.
+
+Docker run, is the main command used to start this image running on a container. The image will contain instructions for what to run (programs, os, cli commands e.t.c).
+
+The default command run on the docker run <image name> can be overridden.
+
+
+=======================================================
+
+The image is a snapshot of files / filesystem.
+
+Some images might have an entire filesystem included. Some may only contain a few files.
+
+( So some linux commands, like 'ls', might not work if the image doesn't contain the 'ls' executable )
+
+=======================================================
+
+"docker ps" command is used to list all running docker images
+
+=======================================================
+
+running command
+Docker ps --all
+will show the history of all images that have been run
+
+=======================================================
+
+"Docker run" = "docker create" + "docker start"
+
+=======================================================
+
+docker start "-a" 
+
+The -a is essentially a hook to print all console messages from the docker container, to your terminal instead of ignoring them.
+
+=======================================================
+
+Can re-run containers that have been run and closed.
+
+You CANNOT change the start command for the container that was run and exited. 
+
+=======================================================
+
+Delete all stopped containers with "docker system prune"
+
+=======================================================
+
+Also - as noted in the purge info
+Deletes - Networks not used by at least 1 container, all dangling images, all build cache
+
+=======================================================
+
+"docker logs <imageID>"
+Get the logs from the container - i.e all console output e.t.c
+
+=======================================================
+
+docker stop and docker kill.
+
+
+Docker stop sends "sig terminate" to running process inside the docker container. You can usually listen for this signal in programming languages. It's more of a 'stop in your own time'.
+
+
+Docker kill issues 'sigkill' to running process inside container. Says 'end, immediately'.
+
+
+Docker stop will auto revert to docker kill after 10 seconds if the process is still running.
+
+=======================================================
+
+You can't interact with things running inside the docker container. 
+Example, I have a chat room running inside the docker. 
+I can't try to connect the client locally, because it doesn't exist because that docker process is not running 'locally'.
+
+To interact with the docker container, you use
+"docker exec -it <imageID> <cmdToRun>"
+
+=======================================================
+
+The exec '-i' flag is for interactive mode.
+Behind the scene it says, connect my terminal, anything i type to the stdin of whatever image is running.
+
+The exec '-t' flag is for the tty, virtual terminal. It's not 100% necessary, but it makes your terminal look like you expect as opposed to just blank lines waiting for I/O
+
+=======================================================
+
+can use 'docker exec -it <imageid> sh' to open shell to the container.
+
+=======================================================
+
+
+=======================================================================
+PART 2 
+=======================================================================
+
