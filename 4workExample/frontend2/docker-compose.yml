@@ -10,3 +10,14 @@ services:
     volumes:
       - /app/node_modules   # Mapping node_modules separately
       - .:/app              # Mapping pwd to /app inside container
+
+  # Creating the second service for running test - see explanation file for why
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:app
+    # overriding the default run command.
+    command: ["npm", "run", "test"]

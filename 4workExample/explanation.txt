@@ -84,3 +84,21 @@ Reason : When we tried to attach the terminal ("docker attach <test_contianer_id
 The npm run tests command creates 1 process for 'npm' then npm starts a second process for the 'npm run tests'
 Because of this, when we try to attach to the docker container, we only attach to npm, so our input is essentially discarded
 
+====================================
+Docker build - production version of web container
+
+Going to mkae use of nginx - it's a webserver that just routes static files
+
+# note - one of the differences between this and the dev build is that we don't need all the dependencies to run the docker file
+# We just need the contents of the ./build directory -- this will eliminate ~150mb of garbage
+
+We can use something called a "multi-step build process".
+It'll have 2 different blocks of configuration.
+1. will be for the build phase - install dependences, run the build command e.t.called
+2. Is for the run phase - This will allow a second base image, and allows us to copy the results of #1 to this container and allow us to run nginx
+
+-------------------
+We made the Dockerfile that contains the builder and run phases for the container.
+
+When we 'docker build' and 'docker run', we have a very sturdy webserver because of nginx.
+Nginx is a very solid webserver and is made for production environments.

@@ -5,6 +5,9 @@ WORKDIR '/app'
 COPY package.json .
 RUN npm install
 
+# not necessary - as we use it in docker-compose
+# however, if you decided to change things in the future - e.g. removing docker compose, we'd need this again.
+# safer to leave it in
 COPY . .
 
 CMD ["npm", "run", "start"]
