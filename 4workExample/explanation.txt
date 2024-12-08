@@ -19,3 +19,35 @@ NOTE - docker isn't needed for these workflows. It is a tool to make
 =====================================
 
 This'll use a react app.
+
+npm run start
+npm run test
+npm run build 
+
+====================================
+
+We have 2 docker files, 1 for dev, one for production.
+
+To specify another docker file to build, we use the -f argument
+
+"docker build -f Dockerfile.dev ."
+
+=====================================
+
+We deleted our local node_modules directory as the "copy" command was copying all the node module over
+after we just told docker to install them onto the container
+
+===================================
+
+Problem - changes in source code didn't propagate onto running container
+
+( note - if we want to solve this, we can't use the copy, we need to use something called 'volumes' )
+
+Volume - A volume is similar to port mapping. We essentially map a folder in the contianer to outside the container
+
+"docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image>"
+
+the -v flag is the volume mapping.
+
+-v /app/node_modules 	<-- essentially saying, map node modules from the container to our local pwd /node_modules
+-v $(pwd):/app 			<-- Saying map out current working directory to the /app directory in the container
