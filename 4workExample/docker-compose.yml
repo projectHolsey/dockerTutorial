@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: 
+      context: .                  # Look in current working directory
+      dockerfile: Dockerfile.dev  # For a dockerfile called dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules   # Mapping node_modules separately
+      - .:/app              # Mapping pwd to /app inside container

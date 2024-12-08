@@ -51,3 +51,36 @@ the -v flag is the volume mapping.
 
 -v /app/node_modules 	<-- essentially saying, map node modules from the container to our local pwd /node_modules
 -v $(pwd):/app 			<-- Saying map out current working directory to the /app directory in the container
+
+
+================================
+
+Because the docker run file was so long, we made a docker-compose file.yml file to contain all the cmdline arguments instead
+
+================================
+
+When trying to run the "npm run test", we need to run the docker file with the -it argument and the command we want to run.
+
+"docker build ."
+"docker run -it <image id> npm run test"
+
+------------------------------
+
+There was a slight problem here in that, running the tests doesn't update if we create more tests
+
+A quick solution was to run the docker compose file, bring up the build.
+Then use the image id of that running container and send it a "npm run tests"
+"docker exec -it <docker_compose image id> npm run test"
+## This isn't optimal as it requires us to build the docker compose file
+
+The second solution is to create a second service inside the docker-compose file.
+We added a second command to the docker compose file, then got it to rebuild with the command
+"docker-compose up --build"
+This is also not great because it gets the stdout & stdin mixed up with the other service from docker-compose file
+
+We tried using another terminal to docker attach to the running container, but this doesn't work.
+Docker-compose doesn't allow us to run the tests essentially - 
+Reason : When we tried to attach the terminal ("docker attach <test_contianer_id>"), it attaches to the stdin of the primary process
+The npm run tests command creates 1 process for 'npm' then npm starts a second process for the 'npm run tests'
+Because of this, when we try to attach to the docker container, we only attach to npm, so our input is essentially discarded
+
