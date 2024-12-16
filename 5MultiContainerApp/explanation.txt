@@ -1,0 +1,14 @@
+This section focuses on creating a website that'll calculate the fibbinaci ssequence.
+
+The difference between this and the earlier version, is this will contain multiple applications.
+Namely a front end javascript page / webserver and a backend database
+
+The technologies used:
+
+1. Nginx - will be used as the front end user interactation
+2. React server - serve the front end gui components
+3. Express server - For webserver endpoint to serve data e.t.c
+4. Redis - Database 1
+5. postgres - Database 2
+
+
