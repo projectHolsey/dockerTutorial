@@ -1,0 +1,15 @@
+FROM node:lts-alpine
+
+WORKDIR '/app'
+
+# Copt the package.json file for npm install
+COPY ./package.json ./
+
+RUN npm install
+
+# Copy all the npm installed files over
+COPY . .
+
+# In the package.json file we have a command "dev"
+# it uses something call nodemon - this will essentially rebuild the node project anytime a file in the dir is updated
+CMD [ "npm", "run", "dev" ]

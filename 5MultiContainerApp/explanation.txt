@@ -12,3 +12,27 @@ The technologies used:
 5. postgres - Database 2
 
 
+======================================================
+I skipped through the majority of the formation of the javascript frontend code but here's the quick run down.
+
+We've got a react application. It has 2 main pages, 1 for the fibinnaci sequence, the other for just a random page to show you can navigate pages.
+
+The react application calls to different endpoints of a node express server.
+
+The server endpoints will add different values to the databases and allow you to get all the output from the different databases.
+
+The 'worker' is activated when things are added to the database. 
+Essentially, we'll add a key and a value to the database. The worker will run off with the new key, then calculate the new fibinnaci value for this value. Then replace the value
+in the database with the value it just created.
+
+There's 2 databases. The postgres one holds the keys. The redis one holds the key and values.
+
+=======================================================
+
+Section 9 - where the docker work starts.
+
+In 121, we're creating dev dockerfiles.
+
+
+
+
