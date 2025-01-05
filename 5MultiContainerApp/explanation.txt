@@ -33,6 +33,28 @@ Section 9 - where the docker work starts.
 
 In 121, we're creating dev dockerfiles.
 
+The docker files are pretty simple; 
+they all essentially download the required node packages 
+and do npm run start or similar to start the development environment
 
+===========================================
+We then created the docker compose file.
+
+This created a few different environments: worker, clinet and server.
+
+This allowed us to run the different docker files, map their volumes and set a bunch 
+of evironment variables in order to ensure files were correctly copied over.
+
+---------------
+
+Following this, we also added another environment: nginx.
+This was to host the different files and ensure all the endpoints are routed properly
+
+In order to do this, we add a condition to the nginx server that will forward all the
+/api requests through to the express server, and all the
+/ requests were forwarded to the react server.
+
+side note - we specify the /api instead of the port number as port numbers can change on the route,
+having the /api at the beggining, we can just customize them in one place
 
 

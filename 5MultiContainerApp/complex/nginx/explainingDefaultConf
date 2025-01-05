@@ -1,0 +1,12 @@
+It creates 2 different ports for upstream communication.
+
+Anything for the client goes to port 3000
+anything for the api goes to port 5000
+-- You can see the api and client definitions inside the docker-compose file
+
+Line 9 is creating the nginx server
+It listens on port 80
+Any request that's sent via the default '/' is sent to the client
+Any request that's sent via the '/api' is sent to the api
+
+-> Note - Line 17 just rewrites the request to got remove the '/api' part when it's sent to the api webserver

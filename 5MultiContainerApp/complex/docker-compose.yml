@@ -1,0 +1,59 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+  redis:
+    image: 'redis:latest'
+
+  # added the nginx container to the docker compose file
+  nginx:
+    # Always restart as it's routing traffing to entire application
+    depends_on:
+      - api
+      - client
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+
+  # Renamed from 'server' to api so to keep nginx happy
+  api:
+    build:
+      # this is telling the ocker composethe name of the docker file
+      dockerfile: Dockerfile.dev
+      # context is where we want to grab the files from
+      context: ./server   
+    volumes:
+      - /app/node_modules
+      # telling us to map the /server drectory to the /app inside the container
+      - ./server:/app
+    environment:
+      # Note - a lot of the informaation for ports e.t.c is in the hub.docker pages for the image
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+  client:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app  
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
